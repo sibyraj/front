@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const port = 3001;
@@ -12,10 +13,10 @@ app.use(bodyParser.json());
 // Create MySQL pool
 const pool = mysql.createPool({
   connectionLimit: 10, // Adjust as needed
-  host: 'localhost',
-  user: 'root',
-  password: '4100',
-  database: 'project'
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE
 });
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
